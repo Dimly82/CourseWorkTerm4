@@ -31,6 +31,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: artifact
-        path: x64/Debug/CourseWorkTerm4.exe
+        path: x64\Debug\CourseWorkTerm4.exe
         retention-days: 30
       
