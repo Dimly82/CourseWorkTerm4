@@ -1,7 +1,13 @@
 #include "framework.h"
 #include "CourseWorkTerm4.h"
 
-#define MAX_LOADSTRING 100
+#include <string>
+#include <atlbase.h>
+
+constexpr auto MAX_LOADSTRING = 100;
+constexpr auto ID_BUTTON_REGULAR = 1;
+constexpr auto ID_BUTTON_LAMBDA = 2;
+
 
 // Global Variables:
 HINSTANCE hInst; // current instance
@@ -13,6 +19,27 @@ ATOM MyRegisterClass(HINSTANCE hInstance);
 BOOL InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
+
+// Example functions
+int Square(int x) {
+	return x * x;
+}
+
+auto lambdaSquare = [](int x) {
+	return x * x;
+};
+
+// Callback functions
+void OnRegularFunction(HWND hWnd, int x) {
+	const char* result = std::to_string(Square(x)).c_str();
+
+	MessageBox(hWnd, reinterpret_cast<LPCWSTR>(result), L"Regular Function Result", MB_OK);
+}
+
+void OnLambdaFunction(HWND hWnd, int x) {
+	const char* result = std::to_string(lambdaSquare(x)).c_str();
+	MessageBox(hWnd, reinterpret_cast<LPCWSTR>(result), L"Lambda Function Result", MB_OK);
+}
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                       _In_opt_ HINSTANCE hPrevInstance,
@@ -48,12 +75,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	return (int)msg.wParam;
 }
 
-
-//
-//  FUNCTION: MyRegisterClass()
-//
-//  PURPOSE: Registers the window class.
-//
+/**
+    @brief  Registers the window class.
+    @param  hInstance     
+**/
 ATOM MyRegisterClass(HINSTANCE hInstance) {
 	WNDCLASSEXW wcex;
 
@@ -74,16 +99,10 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 	return RegisterClassExW(&wcex);
 }
 
-//
-//   FUNCTION: InitInstance(HINSTANCE, int)
-//
-//   PURPOSE: Saves instance handle and creates main window
-//
-//   COMMENTS:
-//
-//        In this function, we save the instance handle in a global variable and
-//        create and display the main program window.
-//
+/** @brief Saves instance handle and creates main window.
+	@param hInstance 
+	@param nCmdShow
+**/
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	hInst = hInstance; // Store instance handle in our global variable
 
@@ -100,22 +119,35 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	return TRUE;
 }
 
-//
-//  FUNCTION: WndProc(HWND, UINT, WPARAM, LPARAM)
-//
-//  PURPOSE: Processes messages for the main window.
-//
-//  WM_COMMAND  - process the application menu
-//  WM_PAINT    - Paint the main window
-//  WM_DESTROY  - post a quit message and return
-//
-//
+/**
+    @brief  Processes messages for the main window.
+    @param  hWnd   
+    @param  message
+    @param  wParam 
+    @param  lParam 
+    @retval        
+**/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
+	case WM_CREATE: {
+		CreateWindow(L"BUTTON", L"Regular Function",
+		             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 10, 200, 30, hWnd,
+		             (HMENU)ID_BUTTON_REGULAR, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
+		CreateWindow(L"BUTTON", L"Lambda Function",
+		             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 50, 200, 30, hWnd,
+		             (HMENU)ID_BUTTON_LAMBDA, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
+	}
+	break;
 	case WM_COMMAND: {
 		int wmId = LOWORD(wParam);
 		// Parse the menu selections:
 		switch (wmId) {
+		case ID_BUTTON_REGULAR:
+			OnRegularFunction(hWnd, 5);
+			break;
+		case ID_BUTTON_LAMBDA:
+			OnLambdaFunction(hWnd, 5);
+			break;
 		case IDM_ABOUT:
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
 			break;
@@ -143,7 +175,13 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 	return 0;
 }
 
-// Message handler for about box.
+/**
+    @brief  Message handler for about box.
+    @param  hDlg   
+    @param  message
+    @param  wParam 
+    @param  lParam    
+**/
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message) {
