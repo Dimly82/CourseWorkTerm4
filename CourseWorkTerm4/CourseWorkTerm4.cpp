@@ -2,17 +2,15 @@
 #include "CourseWorkTerm4.h"
 
 #include <string>
-#include <atlbase.h>
 
-constexpr auto MAX_LOADSTRING = 100;
+constexpr auto MAX_LOAD_STRING = 100;
 constexpr auto ID_BUTTON_REGULAR = 1;
 constexpr auto ID_BUTTON_LAMBDA = 2;
 
-
 // Global Variables:
 HINSTANCE hInst; // current instance
-WCHAR szTitle[MAX_LOADSTRING]; // The title bar text
-WCHAR szWindowClass[MAX_LOADSTRING]; // the main window class name
+WCHAR szTitle[MAX_LOAD_STRING]; // The title bar text
+WCHAR szWindowClass[MAX_LOAD_STRING]; // the main window class name
 
 // Forward declarations of functions included in this code module:
 ATOM MyRegisterClass(HINSTANCE hInstance);
@@ -31,14 +29,17 @@ auto lambdaSquare = [](int x) {
 
 // Callback functions
 void OnRegularFunction(HWND hWnd, int x) {
-	const char* result = std::to_string(Square(x)).c_str();
-
-	MessageBox(hWnd, reinterpret_cast<LPCWSTR>(result), L"Regular Function Result", MB_OK);
+	std::string res = std::to_string(Square(x));
+	std::wstring tmp = std::wstring(res.begin(), res.end());
+	LPCWSTR wres = tmp.c_str();
+	MessageBox(hWnd, wres, L"Regular Function Result", MB_OK);
 }
 
 void OnLambdaFunction(HWND hWnd, int x) {
-	const char* result = std::to_string(lambdaSquare(x)).c_str();
-	MessageBox(hWnd, reinterpret_cast<LPCWSTR>(result), L"Lambda Function Result", MB_OK);
+	std::string res = std::to_string(lambdaSquare(x));
+	std::wstring tmp = std::wstring(res.begin(), res.end());
+	LPCWSTR wres = tmp.c_str();
+	MessageBox(hWnd, wres, L"Lambda Function Result", MB_OK);
 }
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -48,11 +49,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	// TODO: Place code here.
-
 	// Initialize global strings
-	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	LoadStringW(hInstance, IDC_COURSEWORKTERM4, szWindowClass, MAX_LOADSTRING);
+	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOAD_STRING);
+	LoadStringW(hInstance, IDC_COURSEWORKTERM4, szWindowClass, MAX_LOAD_STRING);
 	MyRegisterClass(hInstance);
 
 	// Perform application initialization:
@@ -107,7 +106,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	hInst = hInstance; // Store instance handle in our global variable
 
 	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-	                          CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+	                          CW_USEDEFAULT, 0, 500, 200, nullptr, nullptr, hInstance, nullptr);
 
 	if (!hWnd) {
 		return FALSE;
@@ -124,8 +123,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
     @param  hWnd   
     @param  message
     @param  wParam 
-    @param  lParam 
-    @retval        
+    @param  lParam        
 **/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {

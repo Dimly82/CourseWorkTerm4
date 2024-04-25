@@ -1,4 +1,4 @@
 ﻿  CourseWorkTerm4.cpp
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(133,3): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(136,3): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(131,3): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(134,3): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
   CourseWorkTerm4.vcxproj -> C:\Users\pdimo\source\repos\CourseWorkTerm4\x64\Debug\CourseWorkTerm4.exe
