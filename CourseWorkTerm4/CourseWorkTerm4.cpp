@@ -1,6 +1,7 @@
 #include "framework.h"
 #include "CourseWorkTerm4.h"
 
+#include <chrono>
 #include <string>
 
 constexpr auto MAX_LOAD_STRING = 100;
@@ -11,6 +12,7 @@ constexpr auto ID_BUTTON_LAMBDA = 2;
 HINSTANCE hInst; // current instance
 WCHAR szTitle[MAX_LOAD_STRING]; // The title bar text
 WCHAR szWindowClass[MAX_LOAD_STRING]; // the main window class name
+HWND textBox;
 
 // Forward declarations of functions included in this code module:
 ATOM MyRegisterClass(HINSTANCE hInstance);
@@ -20,26 +22,42 @@ INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
 // Example functions
 int Square(int x) {
-	return x * x;
+	int res = 0;
+	for (size_t i = 0; i < 1000000000; i++) res += x;
+	return res;
 }
 
 auto lambdaSquare = [](int x) {
-	return x * x;
+	int res = 0;
+	for (size_t i = 0; i < 1000000000; i++) res += x;
+	return res;
 };
 
 // Callback functions
 void OnRegularFunction(HWND hWnd, int x) {
-	std::string res = std::to_string(Square(x));
+	auto start = std::chrono::high_resolution_clock::now();
+	x = Square(x);
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+	std::string res = "Result: " + std::to_string(x) + "\nTime: " + std::to_string(duration.count()) + " microseconds";
 	std::wstring tmp = std::wstring(res.begin(), res.end());
 	LPCWSTR wres = tmp.c_str();
+
 	MessageBox(hWnd, wres, L"Regular Function Result", MB_OK);
 }
 
 void OnLambdaFunction(HWND hWnd, int x) {
-	std::string res = std::to_string(lambdaSquare(x));
+	auto start = std::chrono::high_resolution_clock::now();
+	x = lambdaSquare(x);
+	auto end = std::chrono::high_resolution_clock::now();
+	auto duration = std::chrono::duration_cast<std::chrono::microseconds>(end - start);
+
+	std::string res = "Result: " + std::to_string(x) + "\nTime: " + std::to_string(duration.count()) + " microseconds";
 	std::wstring tmp = std::wstring(res.begin(), res.end());
 	LPCWSTR wres = tmp.c_str();
-	MessageBox(hWnd, wres, L"Lambda Function Result", MB_OK);
+
+	MessageBox(hWnd, wres, L"Regular Function Result", MB_OK);
 }
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
@@ -134,17 +152,22 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 		CreateWindow(L"BUTTON", L"Lambda Function",
 		             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 50, 200, 30, hWnd,
 		             (HMENU)ID_BUTTON_LAMBDA, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
+		textBox = CreateWindow(L"Edit", L"5", WS_CHILD | WS_VISIBLE | WS_BORDER, 230, 25, 200, 30, hWnd, NULL, NULL,
+		                       NULL);
 	}
 	break;
 	case WM_COMMAND: {
+		LPWSTR x = (LPWSTR)malloc(sizeof(wchar_t) * 100);
+		GetWindowText(textBox, x, 100);
+
 		int wmId = LOWORD(wParam);
 		// Parse the menu selections:
 		switch (wmId) {
 		case ID_BUTTON_REGULAR:
-			OnRegularFunction(hWnd, 5);
+			OnRegularFunction(hWnd, std::stoi(x));
 			break;
 		case ID_BUTTON_LAMBDA:
-			OnLambdaFunction(hWnd, 5);
+			OnLambdaFunction(hWnd, std::stoi(x));
 			break;
 		case IDM_ABOUT:
 			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
@@ -155,6 +178,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}
+
+		free(x);
 	}
 	break;
 	case WM_PAINT: {
