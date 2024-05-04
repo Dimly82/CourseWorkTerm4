@@ -1,9 +1,9 @@
 ﻿  CourseWorkTerm4.cpp
 C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(129,16): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
 C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(132,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(135,18): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(207,15): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(210,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(214,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(224,3): warning C4065: switch statement contains 'default' but no 'case' labels
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(136,18): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(203,15): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(207,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(212,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(223,3): warning C4065: switch statement contains 'default' but no 'case' labels
   CourseWorkTerm4.vcxproj -> C:\Users\pdimo\source\repos\CourseWorkTerm4\x64\Debug\CourseWorkTerm4.exe
