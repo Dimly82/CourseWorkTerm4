@@ -1,44 +1,53 @@
 #include "framework.h"
 #include "CourseWorkTerm4.h"
 
-#include <chrono>
 #include <string>
 
 constexpr auto MAX_LOAD_STRING = 100;
+
+// ID кнопок
 constexpr auto ID_BUTTON_SORT_EX = 1;
 constexpr auto ID_BUTTON_FEACH_EX = 2;
 constexpr auto ID_BUTTON_TRANSF_EX = 3;
-constexpr auto ID_RADBUTTON_SORT_ASC = 4;
-constexpr auto ID_RADBUTTON_SORT_DESC = 5;
 
+constexpr auto ID_BUTTON_SORT_EXEC = 4;
+constexpr auto ID_RADBUTTON_SORT_ASC = 5;
+constexpr auto ID_RADBUTTON_SORT_DESC = 6;
+
+// Названия классов окон
 constexpr auto SORT_CLASS = L"SortWnd";
 constexpr auto FEACH_CLASS = L"FeachWnd";
 constexpr auto TRANSF_CLASS = L"TransfWnd";
 
-// Global Variables:
-HINSTANCE hInst; // current instance
-WCHAR szTitle[MAX_LOAD_STRING]; // The title bar text
-WCHAR szWindowClass[MAX_LOAD_STRING]; // the main window class name
+// Глобальные переменные:
+HINSTANCE hInst; // текущая инстанция
+WCHAR szTitle[MAX_LOAD_STRING]; // имя главного окна
+WCHAR szWindowClass[MAX_LOAD_STRING]; // класс главного окна
 
-// Window handlers
+// Обработчики окон
 HWND sortWnd;
 HWND feachWnd;
 HWND transfWnd;
 
-// Sort example components
+// Кнопки главного окна
+HWND sortWndBtn;
+HWND feachWndBtn;
+HWND transfWndBtn;
+
+// Компоненты окна для sort
 HWND sortExBtn;
 HWND sortExStat;
 HWND sortExInp;
 HWND sortExRBtn1;
 HWND sortExRBtn2;
 
-// Forward declarations of functions included in this code module:
+// Функции для главного окна
 ATOM MyRegisterClass(HINSTANCE hInstance);
 BOOL InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
-// Sort window
+// Функции для окна с примером sort
 ATOM SortRegisterClass(HINSTANCE hInstance);
 LRESULT CALLBACK SortWndProc(HWND, UINT, WPARAM, LPARAM);
 
@@ -49,13 +58,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
-	// Initialize global strings
+	// Ининциализация глобальных строк
 	LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOAD_STRING);
 	LoadStringW(hInstance, IDC_COURSEWORKTERM4, szWindowClass, MAX_LOAD_STRING);
+
+	// Регистрация классов окон
 	MyRegisterClass(hInstance);
 	SortRegisterClass(hInstance);
 
-	// Perform application initialization:
+	// Инициализация главного окна
 	if (!InitInstance(hInstance, nCmdShow)) {
 		return FALSE;
 	}
@@ -64,7 +75,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	MSG msg;
 
-	// Main message loop:
+	// Главный цикл
 	while (GetMessage(&msg, nullptr, 0, 0)) {
 		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
 			TranslateMessage(&msg);
@@ -75,10 +86,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	return (int)msg.wParam;
 }
 
-/**
-    @brief  Registers the window class.
-    @param  hInstance     
-**/
 ATOM MyRegisterClass(HINSTANCE hInstance) {
 	WNDCLASSEXW wcex;
 
@@ -99,12 +106,8 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 	return RegisterClassExW(&wcex);
 }
 
-/** @brief Saves instance handle and creates main window.
-	@param hInstance 
-	@param nCmdShow
-**/
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
-	hInst = hInstance; // Store instance handle in our global variable
+	hInst = hInstance;
 
 	HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
 	                          CW_USEDEFAULT, 0, 500, 200, nullptr, nullptr, hInstance, nullptr);
@@ -119,30 +122,24 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow) {
 	return TRUE;
 }
 
-/**
-    @brief  Processes messages for the main window.
-    @param  hWnd   
-    @param  message
-    @param  wParam 
-    @param  lParam        
-**/
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
 	case WM_CREATE: {
-		CreateWindow(L"BUTTON", L"Пример sort",
+		// Создание кнопок для вызова окон с примерами
+		sortWndBtn = CreateWindow(L"BUTTON", L"Пример sort",
 		             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 10, 200, 30, hWnd,
 		             (HMENU)ID_BUTTON_SORT_EX, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
-		CreateWindow(L"BUTTON", L"Пример for_each",
+		feachWndBtn = CreateWindow(L"BUTTON", L"Пример for_each",
 		             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 50, 200, 30, hWnd,
 		             (HMENU)ID_BUTTON_FEACH_EX, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
-		CreateWindow(L"BUTTON", L"Пример transform",
+		transfWndBtn = CreateWindow(L"BUTTON", L"Пример transform",
 		             WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON, 10, 90, 200, 30, hWnd,
 		             (HMENU)ID_BUTTON_TRANSF_EX, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), NULL);
 	}
 	break;
 	case WM_COMMAND: {
 		int wmId = LOWORD(wParam);
-		// Parse the menu selections:
+		// Обработка команд
 		switch (wmId) {
 		case ID_BUTTON_SORT_EX: {
 			sortWnd = CreateWindow(SORT_CLASS, L"Пример sort", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 500, 250, hWnd,
@@ -199,23 +196,28 @@ ATOM SortRegisterClass(HINSTANCE hInstance) {
 LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
 	case WM_CREATE: {
+		// Создание подписи к текстовому полю
 		sortExStat = CreateWindow(L"Static", L"Введите элементы-числа массива (через запятую, без пробелов)",
 		                          WS_CHILD | WS_VISIBLE, 10, 10, 460, 25, hWnd, nullptr,
 		                          (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+		// Создание текстового поля для ввода элементов массива
 		sortExInp = CreateWindow(L"Edit", L"", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, 10, 40, 460, 25,
 		                         hWnd, nullptr, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+		// Кнопка запуска примера
 		sortExBtn = CreateWindow(L"Button", L"Запустить", WS_VISIBLE | WS_CHILD | WS_BORDER, 150, 170, 200, 30, hWnd,
-		                         nullptr, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
-		sortExRBtn1 = CreateWindow(L"Button", L"По возрастанию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 10, 70, 240,
-		                           95, hWnd, nullptr, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+		                         (HMENU)ID_BUTTON_SORT_EXEC, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+		// Выбор метода сортировки
+		sortExRBtn1 = CreateWindow(L"Button", L"По возрастанию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 10, 70,
+		                           150,
+		                           25, hWnd, (HMENU)ID_RADBUTTON_SORT_ASC, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 		SendMessage(sortExRBtn1, BM_SETCHECK, BST_CHECKED, 0);
-		sortExRBtn2 = CreateWindow(L"Button", L"По убыванию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 250, 70, 460,
-		                           95, hWnd, nullptr, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+		sortExRBtn2 = CreateWindow(L"Button", L"По убыванию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 250, 70, 150,
+		                           25, hWnd, (HMENU)ID_RADBUTTON_SORT_DESC, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 	}
 	break;
 	case WM_COMMAND: {
 		int wmId = LOWORD(wParam);
-		// Parse the menu selections:
+		// Обработка событий
 		switch (wmId) {
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
@@ -234,13 +236,6 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 	return 0;
 }
 
-/**
-    @brief  Message handler for about box.
-    @param  hDlg   
-    @param  message
-    @param  wParam 
-    @param  lParam    
-**/
 INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam) {
 	UNREFERENCED_PARAMETER(lParam);
 	switch (message) {
