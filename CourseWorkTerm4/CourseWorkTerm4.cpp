@@ -1,7 +1,9 @@
 #include "framework.h"
 #include "CourseWorkTerm4.h"
+#include "sort.h"
 
 #include <string>
+#include <atlstr.h>
 
 constexpr auto MAX_LOAD_STRING = 100;
 
@@ -218,6 +220,15 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		int wmId = LOWORD(wParam);
 		// Обработка событий
 		switch (wmId) {
+		case ID_BUTTON_SORT_EXEC: {
+			int inpSize = GetWindowTextLength(sortExInp);
+			LPWSTR inp = new wchar_t[inpSize];
+			GetWindowText(sortExInp, inp, inpSize);
+
+			std::vector<int> inpVector;
+			GetData(inpVector, inp);
+		}
+		break;
 		default:
 			return DefWindowProc(hWnd, message, wParam, lParam);
 		}

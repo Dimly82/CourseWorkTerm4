@@ -1,9 +1,10 @@
 ﻿  CourseWorkTerm4.cpp
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(129,16): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(132,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(136,18): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(203,15): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(207,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(212,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
-C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(223,3): warning C4065: switch statement contains 'default' but no 'case' labels
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(131,16): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(134,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(138,18): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(205,15): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(209,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+C:\Users\pdimo\source\repos\CourseWorkTerm4\CourseWorkTerm4\CourseWorkTerm4.cpp(214,17): warning C4312: 'type cast': conversion from 'const int' to 'HMENU' of greater size
+  sort.cpp
+  Generating Code...
   CourseWorkTerm4.vcxproj -> C:\Users\pdimo\source\repos\CourseWorkTerm4\x64\Debug\CourseWorkTerm4.exe
