@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 
-typedef enum {
+typedef enum
+{
 	ascending,
 	descending
 } sort_method;
@@ -15,5 +16,5 @@ bool DescendingOrder(int a, int b);
 int GetData(std::vector<int>& array, std::wstring str);
 
 // Функции для вызова sort с разными функциями
-int SortWithRegular(std::vector<int> array, sort_method sm);
-int SortWithLambda(std::vector<int> array, sort_method sm);
+int SortWithRegular(std::vector<int>& array, sort_method sm);
+int SortWithLambda(std::vector<int>& array, sort_method sm);
