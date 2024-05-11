@@ -51,5 +51,17 @@
     <Image Include="CourseWorkTerm4.ico">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="LambdaSortCall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="LambdaSortFns.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RegularSortCall.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="RegularSortFns.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
