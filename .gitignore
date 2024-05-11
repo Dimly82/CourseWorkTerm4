@@ -33,5 +33,5 @@
 
 # IDE Bullshit
 .vs/
-.x64/
-.CourseWorkTerm4/x64/
+x64/
+CourseWorkTerm4/x64/
