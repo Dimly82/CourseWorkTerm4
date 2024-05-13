@@ -146,10 +146,6 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="CourseWorkTerm4.ico" />
-    <Image Include="LambdaSortCall.png" />
-    <Image Include="LambdaSortFns.png" />
-    <Image Include="RegularSortCall.png" />
-    <Image Include="RegularSortFns.png" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
