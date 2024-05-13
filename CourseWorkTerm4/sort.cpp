@@ -1,60 +1,58 @@
 #include "sort.h"
 
 #include <algorithm>
-#include <chrono>
 #include <iostream>
 
 #include "framework.h"
 
-bool AscendingOrder(int a, int b)
+using namespace std;
+
+bool AscendingOrder(double a, double b)
 {
 	return a < b;
 }
 
-bool DescendingOrder(int a, int b)
+bool DescendingOrder(double a, double b)
 {
 	return a > b;
 }
 
-int GetData(std::vector<int>& array, std::wstring str)
+int GetData(vector<double>& array, wstring str)
 {
+	if (str.empty()) return 1;
 	size_t pos = 0;
 	std::wstring token;
-	while ((pos = str.find(',')) != std::wstring::npos)
+	while (!str.empty())
 	{
+		pos = find_if(str.begin(), str.end(), [](wchar_t ch) { return !iswdigit(ch) && ch != L'.'; }) - str.begin();
 		token = str.substr(0, pos);
-		array.push_back(std::stoi(token));
+		if (!iswdigit(token[0]) && token[0] != L'.')
+		{
+			str.erase(0, pos + 1);
+			continue;
+		}
+		array.push_back(stod(token));
 		str.erase(0, pos + 1);
 	}
-	array.push_back(std::stoi(str));
+	// array.push_back(stod(str));
 	return 0;
 }
 
 
-int SortWithRegular(std::vector<int>& array, sort_method sm)
+int SortWithRegular(vector<double>& array, sort_method sm)
 {
 	if (sm == ascending)
-		std::sort(array.begin(), array.end(), AscendingOrder);
+		sort(array.begin(), array.end(), AscendingOrder);
 	else
-		std::sort(array.begin(), array.end(), DescendingOrder);
-
-	std::wstring message = L"Отсортированный массив: ";
-	for (auto& el : array)
-		message += std::to_wstring(el) + L", ";
-	MessageBox(nullptr, message.c_str(), L"Обычная функция", MB_OK);
+		sort(array.begin(), array.end(), DescendingOrder);
 	return 0;
 }
 
-int SortWithLambda(std::vector<int>& array, sort_method sm)
+int SortWithLambda(vector<double>& array, sort_method sm)
 {
 	if (sm == ascending)
-		std::sort(array.begin(), array.end(), [](int a, int b) { return a < b; });
+		sort(array.begin(), array.end(), [](int a, int b) { return a < b; });
 	else
-		std::sort(array.begin(), array.end(), [](int a, int b) { return a > b; });
-
-	std::wstring message = L"Отсортированный массив: ";
-	for (auto& el : array)
-		message += std::to_wstring(el) + L", ";
-	MessageBox(nullptr, message.c_str(), L"Лямбда функция", MB_OK);
+		sort(array.begin(), array.end(), [](int a, int b) { return a > b; });
 	return 0;
 }

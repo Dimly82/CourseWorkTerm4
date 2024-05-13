@@ -178,9 +178,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 			case ID_BUTTON_SORT_EX:
 				{
-					sortWnd = CreateWindow(SORT_CLASS, L"Пример sort", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 1000, 500,
-					                       hWnd,
-					                       nullptr, hInst, nullptr);
+					sortWnd = CreateWindow(SORT_CLASS, L"Пример sort", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 500, 200,
+					                       hWnd, nullptr, hInst, nullptr);
 					ShowWindow(sortWnd, SW_SHOW);
 				}
 				break;
@@ -251,33 +250,33 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 		{
 			// Создание подписи к текстовому полю
 			sortExStat = CreateWindow(L"Static", L"Введите элементы-числа массива (через запятую, без пробелов)",
-			                          WS_CHILD | WS_VISIBLE, 10, 10, 460, 25, hWnd, nullptr,
+			                          WS_CHILD | WS_VISIBLE, 10, 10, 980, 25, hWnd, nullptr,
 			                          (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 			// Создание текстового поля для ввода элементов массива
-			sortExInp = CreateWindow(L"Edit", L"", WS_CHILD | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, 10, 40, 460, 25,
+			sortExInp = CreateWindow(L"Edit", L"10,9,8,7,6,5,4,3,2,1,0",
+			                         WS_CHILD | WS_VISIBLE | WS_BORDER | ES_AUTOHSCROLL, 0, 0, 0, 0,
 			                         hWnd, nullptr, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 			// Кнопка запуска примера
-			sortExBtn = CreateWindow(L"Button", L"Запустить", WS_VISIBLE | WS_CHILD | WS_BORDER, 150, 420, 200, 30,
+			sortExBtn = CreateWindow(L"Button", L"Запустить", WS_VISIBLE | WS_CHILD | WS_BORDER, 0, 0, 0, 0,
 			                         hWnd,
 			                         (HMENU)ID_BUTTON_SORT_EXEC, (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
 			                         nullptr);
 			// Выбор метода сортировки
-			sortExRBtn1 = CreateWindow(L"Button", L"По возрастанию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 10, 70,
-			                           150,
-			                           25, hWnd, (HMENU)ID_RADBUTTON_SORT_ASC,
+			sortExRBtn1 = CreateWindow(L"Button", L"По возрастанию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 0, 0,
+			                           0, 0
+			                           , hWnd, (HMENU)ID_RADBUTTON_SORT_ASC,
 			                           (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 			SendMessage(sortExRBtn1, BM_SETCHECK, BST_CHECKED, 0);
-			sortExRBtn2 = CreateWindow(L"Button", L"По убыванию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 250, 70,
-			                           150,
-			                           25, hWnd, (HMENU)ID_RADBUTTON_SORT_DESC,
+			sortExRBtn2 = CreateWindow(L"Button", L"По убыванию", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 0, 0, 0,
+			                           0, hWnd, (HMENU)ID_RADBUTTON_SORT_DESC,
 			                           (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 			// Подписи к скриншотам
-			sortExRegStat = CreateWindow(L"Static", L"Сортировка через обычные функции:",
-			                             WS_CHILD | WS_VISIBLE, 10, 10, 460, 25, hWnd, nullptr,
-			                             (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
-			sortExLamStat = CreateWindow(L"Static", L"Сортировка через лямбда функции:",
-			                             WS_CHILD | WS_VISIBLE, 10, 10, 460, 25, hWnd, nullptr,
-			                             (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+			// sortExRegStat = CreateWindow(L"Static", L"Сортировка через обычные функции:",
+			//                              WS_CHILD | WS_VISIBLE, 10, 100, 490, 25, hWnd, nullptr,
+			//                              (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
+			// sortExLamStat = CreateWindow(L"Static", L"Сортировка через лямбда функции:",
+			//                              WS_CHILD | WS_VISIBLE, 510, 100, 480, 25, hWnd, nullptr,
+			//                              (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 
 			// Загрузка скриншотов
 			regular_sort_fns = new Image(L"RegularSortFns.png");
@@ -298,9 +297,9 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 					LPWSTR inp = new wchar_t[inpSize];
 					GetWindowText(sortExInp, inp, inpSize);
 
-					vector<int> inpVectorReg;
+					vector<double> inpVectorReg;
 					GetData(inpVectorReg, inp);
-					vector<int> inpVectorLambda(inpVectorReg);
+					vector<double> inpVectorLambda(inpVectorReg);
 					SortWithRegular(inpVectorReg,
 					                BST_CHECKED == SendMessage(sortExRBtn1, BM_GETCHECK, 0, 0)
 						                ? ascending
@@ -309,6 +308,16 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 					               BST_CHECKED == SendMessage(sortExRBtn1, BM_GETCHECK, 0, 0)
 						               ? ascending
 						               : descending);
+
+					std::wstring out_message = L"Обычная фнукция: ";
+					for (auto& el : inpVectorReg)
+						out_message += std::to_wstring(el) + L", ";
+
+					out_message += L"\nЛямбда фнукция: ";
+					for (auto& el : inpVectorLambda)
+						out_message += std::to_wstring(el) + L", ";
+
+					MessageBox(hWnd, out_message.c_str(), L"Результат", MB_OK);
 
 					delete[] inp;
 				}
@@ -329,11 +338,11 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 			int height = wnd_rect.bottom - wnd_rect.top;
 
 			// Отрисовка скриншотов
-			Graphics graphics(hdc);
-			graphics.DrawImage(regular_sort_fns, Rect(10, 125, width / 2 - 20, height / 4));
-			graphics.DrawImage(regular_sort_call, Rect(10, 135 + height / 4, width / 2 - 20, height / 4));
-			graphics.DrawImage(lambda_sort_fns, Rect(width / 2, 125, width / 2 - 20, height / 4));
-			graphics.DrawImage(lambda_sort_call, Rect(width / 2, 135 + height / 4, width / 2 - 20, height / 4));
+			// Graphics graphics(hdc);
+			// graphics.DrawImage(regular_sort_fns, Rect(10, 125, 460, 230));
+			// graphics.DrawImage(regular_sort_call, Rect(10, 135 + height / 5, width / 2 - 20, height / 5));
+			// graphics.DrawImage(lambda_sort_fns, Rect(width / 2, 125, width / 2 - 20, height / 4));
+			// graphics.DrawImage(lambda_sort_call, Rect(width / 2, 135 + height / 4, width / 2 - 20, height / 4));
 
 			EndPaint(hWnd, &ps);
 		}
@@ -347,16 +356,17 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 			SetWindowPos(sortExInp, nullptr, 10, 40, width - 20, 25, SWP_NOZORDER);
 			SetWindowPos(sortExRBtn1, nullptr, 10, 70, width / 2 - 10, 25, SWP_NOZORDER);
 			SetWindowPos(sortExRBtn2, nullptr, width / 2 + 10, 70, width / 2 - 20, 25, SWP_NOZORDER);
-			SetWindowPos(sortExRegStat, nullptr, 10, 100, width / 2 - 10, 25, SWP_NOZORDER);
-			SetWindowPos(sortExLamStat, nullptr, width / 2 + 10, 100, width / 2 - 20, 25, SWP_NOZORDER);
-			SetWindowPos(sortExBtn, nullptr, width / 2 - width / 10, 7 * height / 8, width / 5, height / 8 - 20, SWP_NOZORDER);
+			// SetWindowPos(sortExRegStat, nullptr, 10, 100, width / 2 - 10, 25, SWP_NOZORDER);
+			// SetWindowPos(sortExLamStat, nullptr, width / 2 + 10, 100, width / 2 - 20, 25, SWP_NOZORDER);
+			SetWindowPos(sortExBtn, nullptr, width / 2 - width / 10, 100, width / 5, height - 110,
+			             SWP_NOZORDER);
 		}
 		break;
 	case WM_GETMINMAXINFO:
 		{
 			MINMAXINFO* mmi = (MINMAXINFO*)lParam;
-			mmi->ptMinTrackSize.x = 1000;
-			mmi->ptMinTrackSize.y = 500;
+			mmi->ptMinTrackSize.x = 500;
+			mmi->ptMinTrackSize.y = 200;
 		}
 		break;
 	default:
