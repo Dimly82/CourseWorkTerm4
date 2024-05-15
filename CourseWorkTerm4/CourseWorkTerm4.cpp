@@ -5,9 +5,6 @@ using namespace std;
 
 constexpr auto MAX_LOAD_STRING = 100;
 
-// Названия классов окон
-constexpr auto TRANSF_CLASS = L"TransfWnd";
-
 // Глобальные переменные:
 HINSTANCE hInst; // текущая инстанция
 WCHAR szTitle[MAX_LOAD_STRING]; // имя главного окна
@@ -45,6 +42,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	MyRegisterClass(hInstance);
 	SortRegisterClass(hInstance);
 	FEachRegisterClass(hInstance);
+	TransfRegisterClass(hInstance);
 
 	// Инициализация главного окна
 	if (!InitInstance(hInstance, nCmdShow))
@@ -160,6 +158,21 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 					}
 					else
 						SetForegroundWindow(feachWnd);
+				}
+				break;
+			case ID_BUTTON_TRANSF_EX:
+				{
+					if (!IsWindow(transfWnd))
+					{
+						transfWnd = CreateWindow(TRANSF_CLASS, L"Пример transform", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT,
+						                         0,
+						                         500,
+						                         200,
+						                         hWnd, nullptr, hInst, nullptr);
+						ShowWindow(transfWnd, SW_SHOW);
+					}
+					else
+						SetForegroundWindow(transfWnd);
 				}
 				break;
 			default:

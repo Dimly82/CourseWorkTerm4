@@ -9,16 +9,16 @@
 
 // ID кнопок
 constexpr auto ID_BUTTON_FEACH_EXEC = 7;
-constexpr auto ID_RADBUTTON_FEACH_TO_CHAR = 8;
-constexpr auto ID_RADBUTTON_FEACH_FROM_CHAR = 9;
+constexpr auto ID_RADBUTTON_FEACH_TO_UPPER = 8;
+constexpr auto ID_RADBUTTON_FEACH_TO_LOWER = 9;
 
 // Класс окна
 constexpr auto FEACH_CLASS = L"FeachWnd";
 
 typedef enum
 {
-	to_upper,
-	to_lower
+	to_fupper,
+	to_flower
 } feach_method;
 
 // Функции для окна с примером for_each

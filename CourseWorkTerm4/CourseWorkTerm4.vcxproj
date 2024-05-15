@@ -137,11 +137,13 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sort.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="transform.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseWorkTerm4.cpp" />
     <ClCompile Include="for_each.cpp" />
     <ClCompile Include="sort.cpp" />
+    <ClCompile Include="transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="CourseWorkTerm4.rc" />

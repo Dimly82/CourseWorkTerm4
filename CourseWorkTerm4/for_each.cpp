@@ -48,12 +48,12 @@ LRESULT CALLBACK FEachWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 			                          nullptr);
 			feachExRBtn1 = CreateWindow(L"Button", L"К верхнему регистру", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON,
 			                            0, 0, 0, 0,
-			                            hWnd, (HMENU)ID_RADBUTTON_FEACH_FROM_CHAR,
+			                            hWnd, (HMENU)ID_RADBUTTON_FEACH_TO_UPPER,
 			                            (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 			SendMessage(feachExRBtn1, BM_SETCHECK, BST_CHECKED, 0);
 			feachExRBtn2 = CreateWindow(L"Button", L"К нижнему регистру", WS_CHILD | WS_VISIBLE | BS_AUTORADIOBUTTON, 0,
 			                            0, 0, 0,
-			                            hWnd, (HMENU)ID_RADBUTTON_FEACH_FROM_CHAR,
+			                            hWnd, (HMENU)ID_RADBUTTON_FEACH_TO_LOWER,
 			                            (HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE), nullptr);
 		}
 		break;
@@ -74,12 +74,12 @@ LRESULT CALLBACK FEachWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPa
 					vector<wchar_t> inpVectorLambda(inpVectorReg);
 					FEachWithRegular(inpVectorReg,
 					                 BST_CHECKED == SendMessage(feachExRBtn1, BM_GETCHECK, 0, 0)
-						                 ? to_upper
-						                 : to_lower);
+						                 ? to_fupper
+						                 : to_flower);
 					FEachWithLambda(inpVectorLambda,
 					                BST_CHECKED == SendMessage(feachExRBtn1, BM_GETCHECK, 0, 0)
-						                ? to_upper
-						                : to_lower);
+						                ? to_fupper
+						                : to_flower);
 
 					std::wstring out_message = L"Обычная фнукция: " + wstring(inpVectorReg.begin(), inpVectorReg.end());
 					out_message += L"\nЛямбда фнукция: " + wstring(inpVectorLambda.begin(), inpVectorLambda.end());
@@ -149,7 +149,7 @@ int FEachGetData(std::vector<wchar_t>& array, std::wstring str)
 
 int FEachWithRegular(std::vector<wchar_t>& array, feach_method fem)
 {
-	if (fem == to_upper)
+	if (fem == to_fupper)
 		for_each(array.begin(), array.end(), ToUpper);
 	else
 		for_each(array.begin(), array.end(), ToLower);
@@ -158,7 +158,7 @@ int FEachWithRegular(std::vector<wchar_t>& array, feach_method fem)
 
 int FEachWithLambda(std::vector<wchar_t>& array, feach_method fem)
 {
-	if (fem == to_upper)
+	if (fem == to_fupper)
 		for_each(array.begin(), array.end(), [](wchar_t& ch) { ch = towupper(ch); });
 	else
 		for_each(array.begin(), array.end(), [](wchar_t& ch) { ch = towlower(ch); });
