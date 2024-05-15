@@ -6,7 +6,6 @@ using namespace std;
 constexpr auto MAX_LOAD_STRING = 100;
 
 // Названия классов окон
-constexpr auto FEACH_CLASS = L"FeachWnd";
 constexpr auto TRANSF_CLASS = L"TransfWnd";
 
 // Глобальные переменные:
@@ -45,6 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	// Регистрация классов окон
 	MyRegisterClass(hInstance);
 	SortRegisterClass(hInstance);
+	FEachRegisterClass(hInstance);
 
 	// Инициализация главного окна
 	if (!InitInstance(hInstance, nCmdShow))
@@ -137,9 +137,29 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			{
 			case ID_BUTTON_SORT_EX:
 				{
-					sortWnd = CreateWindow(SORT_CLASS, L"Пример sort", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 500, 200,
-					                       hWnd, nullptr, hInst, nullptr);
-					ShowWindow(sortWnd, SW_SHOW);
+					if (!IsWindow(sortWnd))
+					{
+						sortWnd = CreateWindow(SORT_CLASS, L"Пример sort", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, 500,
+						                       200,
+						                       hWnd, nullptr, hInst, nullptr);
+						ShowWindow(sortWnd, SW_SHOW);
+					}
+					else
+						SetForegroundWindow(sortWnd);
+				}
+				break;
+			case ID_BUTTON_FEACH_EX:
+				{
+					if (!IsWindow(feachWnd))
+					{
+						feachWnd = CreateWindow(FEACH_CLASS, L"Пример for_each", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0,
+						                        500,
+						                        200,
+						                        hWnd, nullptr, hInst, nullptr);
+						ShowWindow(feachWnd, SW_SHOW);
+					}
+					else
+						SetForegroundWindow(feachWnd);
 				}
 				break;
 			default:

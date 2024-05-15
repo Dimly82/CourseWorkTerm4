@@ -30,12 +30,18 @@
     <ClInclude Include="sort.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="for_each.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseWorkTerm4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="sort.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="for_each.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -49,18 +55,6 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="CourseWorkTerm4.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="LambdaSortCall.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="LambdaSortFns.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RegularSortCall.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="RegularSortFns.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

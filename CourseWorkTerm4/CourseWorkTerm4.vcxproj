@@ -132,6 +132,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CourseWorkTerm4.h" />
+    <ClInclude Include="for_each.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="sort.h" />
@@ -139,6 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CourseWorkTerm4.cpp" />
+    <ClCompile Include="for_each.cpp" />
     <ClCompile Include="sort.cpp" />
   </ItemGroup>
   <ItemGroup>

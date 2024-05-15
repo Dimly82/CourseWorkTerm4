@@ -8,8 +8,6 @@ HWND sortExStat;
 HWND sortExInp;
 HWND sortExRBtn1;
 HWND sortExRBtn2;
-HWND sortExRegStat;
-HWND sortExLamStat;
 
 ATOM SortRegisterClass(HINSTANCE hInstance)
 {
@@ -75,7 +73,7 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 					GetWindowText(sortExInp, inp, inpSize);
 
 					vector<double> inpVectorReg;
-					GetData(inpVectorReg, inp);
+					SortGetData(inpVectorReg, inp);
 					vector<double> inpVectorLambda(inpVectorReg);
 					SortWithRegular(inpVectorReg,
 					                BST_CHECKED == SendMessage(sortExRBtn1, BM_GETCHECK, 0, 0)
@@ -88,11 +86,11 @@ LRESULT CALLBACK SortWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 
 					std::wstring out_message = L"Обычная фнукция: ";
 					for (auto& el : inpVectorReg)
-						out_message += std::to_wstring(el) + L", ";
+						out_message += to_wstring(el) + L", ";
 
 					out_message += L"\nЛямбда фнукция: ";
 					for (auto& el : inpVectorLambda)
-						out_message += std::to_wstring(el) + L", ";
+						out_message += to_wstring(el) + L", ";
 
 					MessageBox(hWnd, out_message.c_str(), L"Результат", MB_OK);
 
@@ -147,7 +145,7 @@ bool DescendingOrder(double a, double b)
 	return a > b;
 }
 
-int GetData(vector<double>& array, wstring str)
+int SortGetData(vector<double>& array, wstring str)
 {
 	if (str.empty()) return 1;
 	size_t pos = 0;
